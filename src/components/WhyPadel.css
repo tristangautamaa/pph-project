@@ -1,0 +1,128 @@
+.why-padel {
+  position: relative;
+  padding-block: var(--section-pad);
+  background: var(--forest-dark);
+  color: var(--white);
+  overflow: hidden;
+}
+
+.why-padel__bg-accent {
+  position: absolute;
+  top: -200px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(84, 94, 69, 0.4) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.why-padel__header {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: clamp(48px, 7vw, 72px);
+}
+
+.section-label--light {
+  color: var(--terracotta-light);
+}
+
+.section-label--light::before {
+  background: var(--terracotta-light);
+}
+
+.why-padel__heading {
+  color: var(--white);
+  max-width: 500px;
+}
+
+.why-padel__heading em {
+  font-style: italic;
+  color: var(--terracotta-light);
+}
+
+/* Cards grid */
+.why-padel__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: clamp(48px, 7vw, 80px);
+}
+
+.why-card {
+  padding: clamp(28px, 3.5vw, 48px);
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: background var(--dur) var(--ease);
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.why-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.why-card__icon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.why-card__title {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--white);
+}
+
+.why-card__text {
+  font-size: 0.85rem;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Blockquote */
+.why-padel__quote {
+  border-left: 3px solid var(--terracotta-mid);
+  padding-left: 32px;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.why-padel__quote p {
+  font-family: var(--font-serif);
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.why-padel__quote cite {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--terracotta-light);
+  font-style: normal;
+}
+
+@media (max-width: 900px) {
+  .why-padel__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .why-padel__grid {
+    grid-template-columns: 1fr;
+  }
+}
