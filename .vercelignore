@@ -1,0 +1,14 @@
+# Source image folders (originals - not needed for deploy)
+Landscape/
+Portrait/
+Logo/
+Courtside/
+
+# Dev artifacts
+scripts/
+.claude/
+skills-lock.json
+CLAUDE.md
+
+# Node
+node_modules/
