@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
+import TransitionLink from "@/components/ui/TransitionLink";
 
 interface ButtonProps {
   href?: string;
@@ -52,7 +52,7 @@ export default function Button({
         </a>
       );
     }
-    return <Link href={href}>{inner}</Link>;
+    return <TransitionLink href={href}>{inner}</TransitionLink>;
   }
 
   return inner;

@@ -1,16 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import CourtLineDivider from "./CourtLineDivider";
 
 export default function Footer() {
   return (
     <footer className="bg-black text-cream">
-      <CourtLineDivider color="light" className="opacity-20" />
-
       <div className="max-w-[1400px] mx-auto px-6 md:px-10 pt-16 pb-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 mb-16">
           {/* Brand */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col items-start gap-4">
             <Image
               src="/images/logo/pph-logo-white.png"
               alt="Poncol Padel House"

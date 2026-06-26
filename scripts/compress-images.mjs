@@ -1,110 +1,40 @@
+// One-off image compressor for the Pusun ball-machine photos.
+//
+// Converts the three source JPGs to width-capped, high-quality WebP next to the
+// originals. The files live in public/images/portrait/ (that is where they were
+// copied from C:\PPH-Project\Portrait in an earlier pass) — they are portrait-
+// orientation photos, so the "portrait" folder is the correct home for them.
+//
+// Run with:  node scripts/compress-images.mjs
+
 import sharp from "sharp";
-import { readdir, mkdir, stat } from "fs/promises";
-import { join, extname, basename } from "path";
+import { stat } from "node:fs/promises";
+import path from "node:path";
 
-const usedImages = {
-  landscape: [
-    "dji_fly_20260608_150122_0015_1780905739959_photo.JPG",
-    "ST307560.jpg",
-    "ST307593.jpg",
-    "ST307631.jpg",
-    "ST307638.jpg",
-    "ST307664.jpg",
-    "ST307665.jpg",
-    "ST307673.jpg",
-    "ST307714.jpg",
-    "ST307716.jpg",
-    "ST307723.jpg",
-    "ST307737.jpg",
-    "ST307745.jpg",
-    "ST307778.jpg",
-    "ST307783.jpg",
-    "ST307839.jpg",
-    "ST307841.jpg",
-    "ST307847.jpg",
-    "ST307854.jpg",
-    "ST307862.jpg",
-    "ST308179.jpg",
-    "ST308228.jpg",
-    "ST308240.jpg",
-    "ST308241.jpg",
-    "ST308412.jpg",
-    "ST308500.jpg",
-    "ST308512.jpg",
-  ],
-  portrait: [
-    "ST307512.JPG",
-    "IMG_6323.jpg",
-    "IMG_6331.jpg",
-    "IMG_6332.jpg",
-    "IMG_6347.jpg",
-  ],
-  logo: [
-    "Poncol Padel House Logo - Transparency White.png",
-    "Poncol Padel House Logo - Transparency Black.png",
-    "Poncol Padel House Logo.jpg",
-  ],
-  courtside: ["Courtside1.png"],
-};
+const DIR = path.join(process.cwd(), "public", "images", "portrait");
+const FILES = ["ST307814.JPG", "ST307823.JPG", "ST307825.JPG"];
+const MAX_WIDTH = 1400;
+const QUALITY = 82;
 
-const srcBase = "C:/PPH-Project/public/images";
-const outBase = "C:/PPH-Project/public/images-opt";
+const mb = (bytes) => `${(bytes / 1024 / 1024).toFixed(2)} MB`;
 
-async function compressImage(srcPath, outPath, type) {
-  try {
-    const ext = extname(srcPath).toLowerCase();
-    const isLandscape = type === "landscape";
-    const isPng = ext === ".png";
+for (const file of FILES) {
+  const input = path.join(DIR, file);
+  const output = path.join(DIR, file.replace(/\.jpe?g$/i, ".webp"));
 
-    let pipeline = sharp(srcPath);
+  const before = (await stat(input)).size;
 
-    // Resize: landscape max 2400px wide, portrait max 1400px wide
-    const maxWidth = isLandscape ? 2400 : 1400;
-    pipeline = pipeline.resize(maxWidth, null, {
-      withoutEnlargement: true,
-      fit: "inside",
-    });
+  await sharp(input)
+    .rotate() // bake in EXIF orientation before stripping metadata to WebP
+    .resize({ width: MAX_WIDTH, withoutEnlargement: true }) // cap width, never upscale
+    .webp({ quality: QUALITY })
+    .toFile(output);
 
-    if (isPng) {
-      pipeline = pipeline.png({ quality: 85, compressionLevel: 9 });
-      await pipeline.toFile(outPath.replace(extname(outPath), ".png"));
-    } else {
-      pipeline = pipeline.jpeg({ quality: 72, mozjpeg: true });
-      await pipeline.toFile(outPath);
-    }
+  const after = (await stat(output)).size;
+  const saved = Math.round((1 - after / before) * 100);
 
-    const srcSize = (await stat(srcPath)).size / 1024 / 1024;
-    const outSize = (await stat(outPath)).size / 1024 / 1024;
-    console.log(
-      `✓ ${basename(srcPath)}: ${srcSize.toFixed(1)}MB → ${outSize.toFixed(1)}MB`
-    );
-  } catch (err) {
-    console.error(`✗ ${basename(srcPath)}: ${err.message}`);
-  }
+  console.log(`${file}  ->  ${path.basename(output)}`);
+  console.log(`   before ${mb(before)}   after ${mb(after)}   (${saved}% smaller)\n`);
 }
 
-async function run() {
-  let total = 0;
-  let compressed = 0;
-
-  for (const [folder, files] of Object.entries(usedImages)) {
-    const outDir = join(outBase, folder);
-    await mkdir(outDir, { recursive: true });
-
-    for (const file of files) {
-      const srcPath = join(srcBase, folder, file);
-      const outPath = join(outDir, file);
-      await compressImage(srcPath, outPath, folder);
-      total++;
-
-      try {
-        const size = (await stat(outPath)).size / 1024 / 1024;
-        compressed += size;
-      } catch {}
-    }
-  }
-
-  console.log(`\nDone: ${total} images → ${compressed.toFixed(1)} MB total`);
-}
-
-run().catch(console.error);
+console.log("Done.");

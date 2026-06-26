@@ -1,14 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
+import TransitionLink from "@/components/ui/TransitionLink";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
+  { href: "/", label: "Home" },
   { href: "/courts", label: "Courts" },
   { href: "/about", label: "About" },
-  { href: "/book", label: "Book a Court" },
+  { href: "/cafe", label: "Café" },
+  { href: "/socials", label: "Socials" },
 ];
 
 export default function Navbar() {
@@ -45,7 +47,7 @@ export default function Navbar() {
       >
         <div className="max-w-[1400px] mx-auto px-6 md:px-10 h-16 md:h-20 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="relative z-10 flex-shrink-0">
+          <TransitionLink href="/" className="relative z-10 flex-shrink-0">
             <Image
               src="/images/logo/pph-logo-white.png"
               alt="Poncol Padel House"
@@ -54,30 +56,20 @@ export default function Navbar() {
               className="h-8 md:h-10 w-auto object-contain"
               priority
             />
-          </Link>
+          </TransitionLink>
 
           {/* Desktop nav */}
           <ul className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <li key={link.href}>
-                <Link
+                <TransitionLink
                   href={link.href}
                   className="font-sans text-[13px] font-400 tracking-widest uppercase text-cream/80 hover:text-cream transition-colors duration-200"
                 >
                   {link.label}
-                </Link>
+                </TransitionLink>
               </li>
             ))}
-            <li>
-              <a
-                href="https://www.instagram.com/poncolpadelhouse"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-sans text-[13px] font-400 tracking-widest uppercase text-cream/80 hover:text-cream transition-colors duration-200"
-              >
-                Instagram
-              </a>
-            </li>
           </ul>
 
           {/* Hamburger */}
@@ -125,30 +117,15 @@ export default function Navbar() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.08 + 0.1 }}
                 >
-                  <Link
+                  <TransitionLink
                     href={link.href}
                     onClick={() => setMenuOpen(false)}
                     className="font-display text-4xl font-300 text-cream hover:text-sand transition-colors"
                   >
                     {link.label}
-                  </Link>
+                  </TransitionLink>
                 </motion.li>
               ))}
-              <motion.li
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.35 }}
-              >
-                <a
-                  href="https://www.instagram.com/poncolpadelhouse"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setMenuOpen(false)}
-                  className="font-sans text-sm tracking-widest uppercase text-cream/60 hover:text-cream transition-colors"
-                >
-                  @poncolpadelhouse
-                </a>
-              </motion.li>
             </ul>
           </motion.div>
         )}

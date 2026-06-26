@@ -43,7 +43,7 @@ export default function BookPage() {
         </div>
       </section>
 
-      <BookingCTA />
+      <BookingCTA showHeading={false} />
 
       {/* How it works */}
       <section className="bg-forest py-24 md:py-32">

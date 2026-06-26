@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
 import Button from "@/components/ui/Button";
+import { FOREST_BLUR } from "@/lib/blur";
 
 const containerVariants = {
   hidden: {},
@@ -79,7 +80,9 @@ export default function Hero() {
           alt="Poncol Padel House aerial view"
           fill
           className="object-cover object-center"
-          priority
+          priority={true}
+          placeholder="blur"
+          blurDataURL={FOREST_BLUR}
           sizes="100vw"
           quality={90}
         />

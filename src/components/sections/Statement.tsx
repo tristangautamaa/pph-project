@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import CourtLineDivider from "@/components/ui/CourtLineDivider";
 
 const lines = [
   { text: "PONCOL PADEL HOUSE", isHeading: true },
@@ -69,7 +68,7 @@ export default function Statement() {
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <section className="bg-forest py-28 md:py-40">
+    <section className="bg-forest py-20 md:py-28">
       <div className="max-w-[1400px] mx-auto px-6 md:px-10">
         <motion.div
           className="max-w-4xl mx-auto text-center"
@@ -112,10 +111,6 @@ export default function Statement() {
             Est. 2024 &middot; Poncol, Jakarta
           </motion.p>
         </motion.div>
-      </div>
-
-      <div className="max-w-[1400px] mx-auto px-6 md:px-10 mt-20 md:mt-28">
-        <CourtLineDivider color="light" className="opacity-20" />
       </div>
     </section>
   );

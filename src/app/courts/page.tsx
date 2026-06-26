@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Footer from "@/components/ui/Footer";
 import Courts from "@/components/sections/Courts";
-import CourtLineDivider from "@/components/ui/CourtLineDivider";
 
 export const metadata: Metadata = {
   title: "Courts | Poncol Padel House",
@@ -109,10 +108,6 @@ export default function CourtsPage() {
           </div>
         </div>
       </section>
-
-      <div className="bg-forest">
-        <CourtLineDivider color="light" className="opacity-20" />
-      </div>
 
       <Footer />
     </main>

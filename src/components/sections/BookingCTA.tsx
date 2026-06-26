@@ -4,13 +4,18 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp } from "@/components/animations/variants";
 
-export default function BookingCTA() {
+interface BookingCTAProps {
+  /** Hide the "Book a Court" heading when a page already provides one (e.g. the /book hero). */
+  showHeading?: boolean;
+}
+
+export default function BookingCTA({ showHeading = true }: BookingCTAProps) {
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <section className="bg-black py-24 md:py-36">
+    <section className="bg-black py-16 md:py-20">
       <div className="max-w-[1400px] mx-auto px-6 md:px-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
           {/* Left: text */}
           <motion.div
             initial={prefersReducedMotion ? false : "hidden"}
@@ -21,13 +26,24 @@ export default function BookingCTA() {
               visible: { transition: { staggerChildren: 0.14 } },
             }}
           >
-            <motion.h2
-              variants={fadeUp}
-              className="font-display font-[300] text-cream uppercase tracking-tight leading-none mb-6"
-              style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)" }}
-            >
-              Book a Court
-            </motion.h2>
+            {showHeading && (
+              <>
+                <motion.p
+                  variants={fadeUp}
+                  className="font-sans text-[11px] tracking-[0.3em] uppercase text-turf mb-5"
+                >
+                  Reserve
+                </motion.p>
+
+                <motion.h2
+                  variants={fadeUp}
+                  className="font-display font-[300] text-cream uppercase tracking-tight leading-none mb-6"
+                  style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)" }}
+                >
+                  Book a Court
+                </motion.h2>
+              </>
+            )}
 
             <motion.p
               variants={fadeUp}
@@ -39,30 +55,41 @@ export default function BookingCTA() {
 
             <motion.div
               variants={fadeUp}
-              className="flex flex-wrap gap-4"
+              className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-8"
             >
-              <a
-                href="https://apps.apple.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-cream/30 text-cream/80 hover:border-cream hover:text-cream font-sans text-[13px] tracking-widest uppercase transition-all duration-300"
-              >
-                App Store
-              </a>
-              <a
-                href="https://play.google.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-cream/30 text-cream/80 hover:border-cream hover:text-cream font-sans text-[13px] tracking-widest uppercase transition-all duration-300"
-              >
-                Google Play
-              </a>
+              <div className="flex flex-wrap gap-4">
+                <a
+                  href="https://apps.apple.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-cream/30 text-cream/80 hover:border-cream hover:text-cream font-sans text-[13px] tracking-widest uppercase transition-all duration-300"
+                >
+                  App Store
+                </a>
+                <a
+                  href="https://play.google.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-cream/30 text-cream/80 hover:border-cream hover:text-cream font-sans text-[13px] tracking-widest uppercase transition-all duration-300"
+                >
+                  Google Play
+                </a>
+              </div>
+
+              {/* Courtside brand logo */}
+              <Image
+                src="/images/courtside/courtside-logo.png"
+                alt="Courtside"
+                width={120}
+                height={40}
+                className="w-[100px] md:w-[120px] h-auto object-contain opacity-85"
+              />
             </motion.div>
           </motion.div>
 
           {/* Right: phone mockup */}
           <motion.div
-            className="flex justify-center lg:justify-end"
+            className="flex justify-center items-center"
             initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
@@ -85,9 +112,10 @@ export default function BookingCTA() {
               <Image
                 src="/images/courtside/Courtside1.png"
                 alt="Courtside app mockup"
-                width={320}
-                height={640}
-                className="object-contain max-h-[500px] w-auto"
+                width={480}
+                height={960}
+                className="object-contain w-auto max-h-[420px] lg:max-h-[560px]"
+                sizes="(max-width: 1024px) 70vw, 40vw"
                 quality={90}
               />
             </motion.div>

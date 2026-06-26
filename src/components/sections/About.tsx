@@ -3,19 +3,13 @@
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, slideInLeft, slideInRight } from "@/components/animations/variants";
-import CourtLineDivider from "@/components/ui/CourtLineDivider";
 
 export default function About() {
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <section className="bg-cream text-black py-24 md:py-36 relative">
-      {/* Inverted court divider at top */}
-      <div className="absolute top-0 left-0 right-0">
-        <CourtLineDivider color="dark" className="opacity-15" />
-      </div>
-
-      <div className="max-w-[1400px] mx-auto px-6 md:px-10 pt-12">
+    <section className="bg-cream text-black py-20 md:py-28 relative">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Image */}
           <motion.div

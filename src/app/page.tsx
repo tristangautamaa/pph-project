@@ -4,6 +4,7 @@ import HorizontalGallery from "@/components/sections/HorizontalGallery";
 import Courts from "@/components/sections/Courts";
 import VenueGallery from "@/components/sections/VenueGallery";
 import About from "@/components/sections/About";
+import BallMachine from "@/components/sections/BallMachine";
 import BookingCTA from "@/components/sections/BookingCTA";
 import Footer from "@/components/ui/Footer";
 
@@ -16,6 +17,7 @@ export default function Home() {
       <Courts />
       <VenueGallery />
       <About />
+      <BallMachine />
       <BookingCTA />
       <Footer />
     </main>

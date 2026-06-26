@@ -18,7 +18,7 @@ export default function VenueGallery() {
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <section className="bg-forest py-24 md:py-36">
+    <section className="bg-forest py-20 md:py-28">
       <div className="max-w-[1400px] mx-auto px-6 md:px-10">
         <motion.h2
           className="font-display font-[300] text-cream text-center mb-16 md:mb-20 uppercase tracking-tight"
