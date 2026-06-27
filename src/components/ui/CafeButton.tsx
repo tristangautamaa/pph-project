@@ -54,9 +54,9 @@ export default function CafeButton() {
       style={{ bottom: 32, right: 32, zIndex: 9997 }}
       animate={controls}
     >
-      {/* Tooltip */}
+      {/* Tooltip — desktop hover only; hidden on touch devices */}
       <span
-        className={`pointer-events-none absolute bottom-full mb-3 right-0 whitespace-nowrap rounded-full bg-black/70 px-3 py-1.5 font-sans text-[10px] uppercase tracking-[0.2em] text-sand backdrop-blur-sm transition-opacity duration-200 ${
+        className={`hidden md:block pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-3 whitespace-nowrap rounded-full bg-black/70 px-3 py-1.5 font-sans text-[10px] uppercase tracking-[0.2em] text-sand backdrop-blur-sm transition-opacity duration-200 ${
           hovered ? "opacity-100" : "opacity-0"
         }`}
       >
