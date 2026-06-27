@@ -1,8 +1,9 @@
 # Source image folders (originals - not needed for deploy)
-Landscape/
-Portrait/
-Logo/
-Courtside/
+# Leading slash anchors to root so public/images/* is NOT excluded
+/Landscape/
+/Portrait/
+/Logo/
+/Courtside/
 
 # Dev artifacts
 scripts/
